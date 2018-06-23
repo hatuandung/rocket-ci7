@@ -2,38 +2,42 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Enemy {
-    public int positionXEnemy;
-    public int positionYEnemy;
-
+    public Vector2D position;
     public BufferedImage image;
-    public int velocityXEnemy;
-    public int velocityYEnemy;
+    public int width;
+    public int height;
+    public Vector2D velocity;
 
-    public Enemy(int positionXEnemy, int positionYEnemy, BufferedImage image, int velocityXEnemy, int velocityYEnemy) {
-        this.positionXEnemy = positionXEnemy;
-        this.positionYEnemy = positionYEnemy;
+    public Enemy(Vector2D position, BufferedImage image, int width, int height, Vector2D velocity) {
+        this.position = position;
         this.image = image;
-        this.velocityXEnemy = velocityXEnemy;
-        this.velocityYEnemy = velocityYEnemy;
+        this.width = width;
+        this.height = height;
+        this.velocity = velocity;
     }
 
     public void runEnemy() {
-        this.positionXEnemy += this.velocityXEnemy;
-        this.positionYEnemy += this.velocityYEnemy;
-
-        if (this.positionXEnemy < 0 || this.positionXEnemy > 1024 -20){
-            this.velocityXEnemy = -this.velocityXEnemy;
-
-        }
-
-        if (this.positionYEnemy < 0 || this.positionYEnemy > 1024 -20){
-            this.velocityYEnemy = -this.velocityYEnemy;
-
-        }
+//        this.positionXEnemy += this.velocityXEnemy;
+//        this.positionYEnemy += this.velocityYEnemy;
+//
+//        if (this.positionXEnemy < 0 || this.positionXEnemy > 1024 -20){
+//            this.velocityXEnemy = -this.velocityXEnemy;
+//
+//        }
+//
+//        if (this.positionYEnemy < 0 || this.positionYEnemy > 1024 -20){
+//            this.velocityYEnemy = -this.velocityYEnemy;
+//
+//        }
+        this.position.addUp(this.velocity);
+        if (this.position.x < 0 || this.position.x > 1024 - 20)
+            this.velocity.x = -this.velocity.x;
+        if (this.position.y < 0 || this.position.y > 1024 - 20)
+            this.velocity.y = -this.velocity.y;
 
     }
 
     public void render(Graphics graphics) {
-        graphics.drawImage(this.image, this.positionXEnemy, this.positionYEnemy, 10,10,null);
+        graphics.drawImage(this.image, (int) position.x, (int) position.y, this.width, this.height, null);
     }
 }
