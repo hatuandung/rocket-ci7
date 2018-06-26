@@ -9,6 +9,7 @@ public class GameWindow extends JFrame {
 
     GameCanvas gameCanvas;
     Player player;
+    BulletPlayer bulletPlayer;
     long lastTime = 0;
     Random random = new Random();
 
@@ -24,14 +25,15 @@ public class GameWindow extends JFrame {
 
         this.setVisible(true);
     }
-    private void event(){
+
+    private void event() {
         this.keyboardEvent();
 
         this.windowEvent();
 
     }
 
-    private void keyboardEvent(){
+    private void keyboardEvent() {
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -46,14 +48,24 @@ public class GameWindow extends JFrame {
 //                        player.positionXPlayer = 1024;
 //                        player.positionYPlayer = random.nextInt(600);
 //                    } else player.positionXPlayer -= 8;
-
+                    gameCanvas.player.angle -= 5;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 //                    if (player.positionXPlayer > 1024) {
 //                        player.positionXPlayer = 0;
 //                        player.positionYPlayer = random.nextInt(600);
 //                    } else player.positionXPlayer += 8;
+                    gameCanvas.player.angle += 5;
                 }
+
+                gameCanvas.player.velocity.set(
+                        (new Vector2D(3.5f, 0.0f)).rotate(gameCanvas.player.angle)
+                );
+
+                gameCanvas.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.velocity.set(
+                        new Vector2D(gameCanvas.player.velocity.x +10, gameCanvas.player.velocity.y)
+                        .rotate(gameCanvas.player.angle))
+                );
 
             }
 
@@ -64,7 +76,7 @@ public class GameWindow extends JFrame {
         });
     }
 
-    private void windowEvent(){
+    private void windowEvent() {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

@@ -1,43 +1,43 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Enemy {
     public Vector2D position;
     public BufferedImage image;
-    public int width;
-    public int height;
     public Vector2D velocity;
+    public List<BulletEnemy> bulletEnemies;
+    public int countBullet = 0;
 
-    public Enemy(Vector2D position, BufferedImage image, int width, int height, Vector2D velocity) {
-        this.position = position;
-        this.image = image;
-        this.width = width;
-        this.height = height;
-        this.velocity = velocity;
+    public Enemy() {
+        this.position = new Vector2D();
+        this.velocity = new Vector2D();
+        this.bulletEnemies = new ArrayList<>();
     }
 
     public void runEnemy() {
-//        this.positionXEnemy += this.velocityXEnemy;
-//        this.positionYEnemy += this.velocityYEnemy;
-//
-//        if (this.positionXEnemy < 0 || this.positionXEnemy > 1024 -20){
-//            this.velocityXEnemy = -this.velocityXEnemy;
-//
-//        }
-//
-//        if (this.positionYEnemy < 0 || this.positionYEnemy > 1024 -20){
-//            this.velocityYEnemy = -this.velocityYEnemy;
-//
-//        }
-        this.position.addUp(this.velocity);
-        if (this.position.x < 0 || this.position.x > 1024 - 20)
-            this.velocity.x = -this.velocity.x;
-        if (this.position.y < 0 || this.position.y > 1024 - 20)
-            this.velocity.y = -this.velocity.y;
 
+        this.position.addUp(this.velocity);
+        this.shootBullet(this);
+        this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.run());
+
+    }
+    public void shootBullet(Enemy enemy){
+        if(countBullet == 6) {
+            for (int i = 0; i < 6; i++) {
+                BulletEnemy bulletEnemy = new BulletEnemy();
+                bulletEnemy.position.set(enemy.position);
+                bulletEnemy.velocity.set(new Vector2D(7, 0).rotate(i * 60));
+                this.bulletEnemies.add(bulletEnemy);
+            }
+            countBullet = 0;
+        }else countBullet +=1;
     }
 
     public void render(Graphics graphics) {
-        graphics.drawImage(this.image, (int) position.x, (int) position.y, this.width, this.height, null);
+        graphics.drawImage(this.image, (int) this.position.x, (int) this.position.y, 10, 10, null);
+        this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.render(graphics));
+
     }
 }

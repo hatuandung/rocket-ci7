@@ -21,7 +21,7 @@ public class Vector2D {
     public Vector2D set(Vector2D vector2D) {
         return this.set(vector2D.x, vector2D.y);
     }
-
+    //cộng dồn vector
     public Vector2D addUp(float x, float y) {
         this.x += x;
         this.y += y;
