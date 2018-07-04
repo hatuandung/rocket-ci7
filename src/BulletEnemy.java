@@ -7,23 +7,22 @@ import java.io.IOException;
 public class BulletEnemy {
     public Vector2D position;
     public Vector2D velocity;
-    public BufferedImage image;
+    //public BufferedImage image;
+    public Renderer renderer;
     //Player player;
     public BulletEnemy() {
         this.position = new Vector2D();
         this.velocity = new Vector2D();
-        this.image = loadImage("resources/resources-rocket-master/resources/images/circle.png");
-
+        this.renderer = new ImageRenderer("resources/resources-rocket-master/resources/images/circle.png", 5,5);
     }
 
-    private BufferedImage loadImage(String path) {
-        try {
-            return ImageIO.read(new File(path));
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
+//    private BufferedImage loadImage(String path) {
+//        try {
+//            return ImageIO.read(new File(path));
+//        } catch (IOException e) {
+//            return null;
+//        }
+//    }
 
     public void run() {
         this.position.addUp(this.velocity);
@@ -31,7 +30,6 @@ public class BulletEnemy {
 
     public void render(Graphics graphics) {
         //this.image.
-
-        graphics.drawImage(this.image, (int) this.position.x, (int) this.position.y, 3, 3, null);
+        this.renderer.render(graphics, this.position);
     }
 }

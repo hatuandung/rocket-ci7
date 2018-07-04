@@ -1,24 +1,15 @@
 import java.awt.*;
 
-public class Background {
-    public Color color;
-    public int x;
-    public int y;
-    public int width;
-    public int height;
+public class Background extends GameObject {
+    private BackgroundRenderer renderer;
 
-
-    public Background(Color color, int x, int y, int width, int height) {
-        this.color = color;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-
+    public Background() {
+        this.renderer = new BackgroundRenderer(Color.black,1024,600);
     }
-    public void render(Graphics graphics){
-        graphics.setColor(color);
-        graphics.fillRect(x,y,width,height);
+
+    @Override
+    public void render(Graphics graphics) {
+        this.renderer.render(graphics, this.position);
     }
 
 }

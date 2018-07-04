@@ -16,21 +16,15 @@ public class GameWindow extends JFrame {
 
     public GameWindow() {
         this.setSize(1024, 600);
-
         this.gameCanvas = new GameCanvas();
-
         this.add(this.gameCanvas);
         this.event();
-
-
         this.setVisible(true);
     }
 
     private void event() {
         this.keyboardEvent();
-
         this.windowEvent();
-
     }
 
     private void keyboardEvent() {
@@ -43,18 +37,9 @@ public class GameWindow extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-
-//                    if (player.positionXPlayer < 0) {
-//                        player.positionXPlayer = 1024;
-//                        player.positionYPlayer = random.nextInt(600);
-//                    } else player.positionXPlayer -= 8;
                     gameCanvas.player.angle -= 5;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//                    if (player.positionXPlayer > 1024) {
-//                        player.positionXPlayer = 0;
-//                        player.positionYPlayer = random.nextInt(600);
-//                    } else player.positionXPlayer += 8;
                     gameCanvas.player.angle += 5;
                 }
 
@@ -62,10 +47,12 @@ public class GameWindow extends JFrame {
                         (new Vector2D(3.5f, 0.0f)).rotate(gameCanvas.player.angle)
                 );
 
-                gameCanvas.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.velocity.set(
-                        new Vector2D(gameCanvas.player.velocity.x +10, gameCanvas.player.velocity.y)
-                        .rotate(gameCanvas.player.angle))
-                );
+
+
+//                gameCanvas.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.velocity.set(
+//                        new Vector2D(gameCanvas.player.velocity.x +10, gameCanvas.player.velocity.y)
+//                        .rotate(gameCanvas.player.angle))
+//                );
 
             }
 
@@ -90,11 +77,8 @@ public class GameWindow extends JFrame {
             long currentTime = System.nanoTime();
             if (currentTime - this.lastTime >= 17_000_000) {
                 this.gameCanvas.runAll();
-
                 this.gameCanvas.renderAll();
                 this.lastTime = currentTime;
-
-
             }
 
         }

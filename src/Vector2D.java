@@ -27,7 +27,7 @@ public class Vector2D {
         this.y += y;
         return this;
     }
-
+    //tạo ra vector mới
     public Vector2D addUp(Vector2D vector2D) {
         return this.addUp(vector2D.x, vector2D.y);
     }
