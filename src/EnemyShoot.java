@@ -18,7 +18,7 @@ public class EnemyShoot implements GameObjectAttack {
         if (frameCounter.run()) {
             for (double angle = 0.0; angle < 360.0; angle += 360 / 10.0) {
                 BulletEnemy bulletEnemy = new BulletEnemy();
-                bulletEnemy.position.set(((Enemy) gameObject).position);
+                bulletEnemy.position.set(((EnemyNormal) gameObject).position);
                 bulletEnemy.velocity.set(new Vector2D(7.0f, 0).rotate(angle * 1));
                 GameObjectManager.instance.add(bulletEnemy);
             }

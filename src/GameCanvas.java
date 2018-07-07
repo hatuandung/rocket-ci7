@@ -12,14 +12,15 @@ public class GameCanvas extends JPanel {
     private BufferedImage backBuffered;
     private Graphics graphics;
 
-
-    public CreateEnemy createEnemy = new CreateEnemy();
     public Player player = new Player();
 
     public GameCanvas() {
         this.setSize(1024, 600);
+
         this.setupBackBuffered();
+
         this.setupCharacter();
+
         this.setVisible(true);
     }
 
@@ -33,7 +34,8 @@ public class GameCanvas extends JPanel {
 
         GameObjectManager.instance.add(new CreateStar());
 
-        this.createEnemy = new CreateEnemy();
+        GameObjectManager.instance.add(new CreateEnemy());
+
         createPlayer();
     }
 
@@ -43,12 +45,7 @@ public class GameCanvas extends JPanel {
     }
 
     public void renderAll() {
-//        this.createStar.render(this.graphics);
-//        this.player.render(this.graphics);
-//        //this.createEnemy.enemies.forEach(enemy -> enemy.render(graphics));
-//        this.createEnemy.enemySpecials.forEach(enemySpecial -> enemySpecial.render(graphics));
-//        this.createEnemy.enemyNormals.forEach(enemyNormal -> enemyNormal.render(graphics));
-        //
+        //render all gameObject : Player, Enemy, Star, Background
         GameObjectManager.instance.renderAll(graphics);
         this.repaint();
     }
@@ -59,26 +56,11 @@ public class GameCanvas extends JPanel {
     }
 
     private void createPlayer() {
-//        this.player.position.set(200, 200);
         Player player = new Player();
         player.position.set(100,200);
         GameObjectManager.instance.add(player);
     }
 
-//    private void runEnemy(){
-//        this.enemies.forEach(enemy -> enemy.velocity.set(this.player.position
-//                .subtract(enemy.position)
-//                .normalize()
-//        ));
-//
-//    }
 
-    private BufferedImage loadImage(String path) {
-        try {
-            return ImageIO.read(new File(path));
-        } catch (IOException e) {
-            return null;
-        }
-    }
 }
 
