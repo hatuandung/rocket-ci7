@@ -1,11 +1,5 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class Player extends GameObject {
@@ -51,11 +45,6 @@ public class Player extends GameObject {
         }
     }
 
-    public void render(Graphics graphics) {
 
-        super.render(graphics);
-        ((PlayerShoot) this.gameObjectAttack).bulletPlayers.forEach(bulletPlayer -> bulletPlayer.render(graphics));
-
-    }
 
 }

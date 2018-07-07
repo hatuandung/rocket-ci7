@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class BackgroundRenderer {
+public class BackgroundRenderer implements Renderer {
     private Color color;
     private int width;
     private int height;
@@ -12,7 +12,7 @@ public class BackgroundRenderer {
     }
 
     public void render(Graphics graphics, Vector2D position){
-        graphics.setColor(Color.black);
+        graphics.setColor(Color.BLACK);
         graphics.fillRect((int)position.x, (int)position.y, this.width, this.height);
     }
 }

@@ -9,19 +9,12 @@ import java.util.List;
 import java.util.Random;
 
 public class GameCanvas extends JPanel {
-    Random random = new Random();
-
-    //BackBuffered
     private BufferedImage backBuffered;
     private Graphics graphics;
-    int countEnemy = 0;
 
-    private Background background;
-    public CreateStar createStar;
-    public CreateEnemy createEnemy;
+
+    public CreateEnemy createEnemy = new CreateEnemy();
     public Player player = new Player();
-
-
 
     public GameCanvas() {
         this.setSize(1024, 600);
@@ -36,10 +29,11 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.background = new Background();
-        this.createStar = new CreateStar();
-        this.createEnemy = new CreateEnemy();
+        GameObjectManager.instance.add(new Background());
 
+        GameObjectManager.instance.add(new CreateStar());
+
+        this.createEnemy = new CreateEnemy();
         createPlayer();
     }
 
@@ -49,37 +43,35 @@ public class GameCanvas extends JPanel {
     }
 
     public void renderAll() {
-
-
-        this.player.render(this.graphics);
-        this.createStar.stars.forEach(star -> star.render(graphics));
-        //this.createEnemy.enemies.forEach(enemy -> enemy.render(graphics));
+//        this.createStar.render(this.graphics);
+//        this.player.render(this.graphics);
+//        //this.createEnemy.enemies.forEach(enemy -> enemy.render(graphics));
+//        this.createEnemy.enemySpecials.forEach(enemySpecial -> enemySpecial.render(graphics));
+//        this.createEnemy.enemyNormals.forEach(enemyNormal -> enemyNormal.render(graphics));
+        //
+        GameObjectManager.instance.renderAll(graphics);
         this.repaint();
     }
 
     public void runAll() {
-        this.background.render(this.graphics);
-
-        this.createStar.create();
-        // enemy run
-
-        // player run
-        this.player.run();
-
+        //run all gameObject : Player, Enemy, Star
+        GameObjectManager.instance.runAll();
     }
-
 
     private void createPlayer() {
-        this.player.position.set(200, 200);
+//        this.player.position.set(200, 200);
+        Player player = new Player();
+        player.position.set(100,200);
+        GameObjectManager.instance.add(player);
     }
 
-    private void runEnemy(){
+//    private void runEnemy(){
 //        this.enemies.forEach(enemy -> enemy.velocity.set(this.player.position
 //                .subtract(enemy.position)
 //                .normalize()
 //        ));
-
-    }
+//
+//    }
 
     private BufferedImage loadImage(String path) {
         try {

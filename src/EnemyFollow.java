@@ -1,11 +1,18 @@
+import java.util.Vector;
+
 public class EnemyFollow implements GameObjectAttack {
-    public Player player;
 
     @Override
     public void run(GameObject gameObject) {
-        Player player = new Player();
-        this..forEach(enemy -> enemy.velocity.set(this.player.position
-//                .subtract(enemy.position)
-//                .normalize()
+        Player player = GameObjectManager.instance.findPlayer();
+        if (player != null) {
+            Vector2D velocity = player.position
+                    .subtract(((EnemySpecial)  gameObject).position)
+                    .normalize()
+                    .multiply(1.5f);
+            ((EnemySpecial) gameObject).velocity.set(velocity);
+        }
+
+
     }
 }
