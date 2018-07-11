@@ -1,12 +1,14 @@
-import javax.imageio.ImageIO;
+import base.GameObject;
+import base.GameObjectManager;
+import game.background.Background;
+import game.enemy.CreateEnemy;
+import game.powerUp.CreatePowerUp;
+import game.star.CreateStar;
+import game.player.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class GameCanvas extends JPanel {
     private BufferedImage backBuffered;
@@ -35,6 +37,8 @@ public class GameCanvas extends JPanel {
         GameObjectManager.instance.add(new CreateStar());
 
         GameObjectManager.instance.add(new CreateEnemy());
+
+        GameObjectManager.instance.add(new CreatePowerUp());
 
         createPlayer();
     }
